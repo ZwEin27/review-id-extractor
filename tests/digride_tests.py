@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-30 15:05:04
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-22 18:14:10
+# @Last Modified time: 2016-07-22 18:34:22
 
 
 import sys
@@ -17,15 +17,12 @@ from digride import DIGRIDE
 import groundtruth
 
 def cmp_extraction(ext1, ext2):
-    ext1_len = len(ext1)
-    ext2_len = len(ext2)
-    if ext1_len != ext2_len:
-        return False
-    
-    for i in range(ext1_len):
-        if ext2[i] not in ext1:
-            return False
-    return True
+    # ext1_len = len(ext1)
+    # ext2_len = len(ext2)
+    # if ext1_len != ext2_len:
+    #     return False
+    # return True
+    return set(ext1) == set(ext2)
 
 class TestDIGRIDEMethods(unittest.TestCase):
     def setUp(self):
