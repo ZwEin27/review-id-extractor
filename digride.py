@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 17:49:14
+# @Last Modified time: 2016-07-25 18:09:13
 
 import re
 
@@ -83,16 +83,30 @@ class DIGRIDE(object):
         ans = []
         ans += [{RE_DICT_NAME_IDENTIFIER:_, RE_DICT_NAME_SITE: RE_DICT_SITE_NAME_OTHERS} for _ in re_simpleones.findall(text)]
 
-        ans = re_simpleones.findall(text)
         # print 'ans', ans
-        text = re_seperator.sub(' sep ', text)
-        text = ' '.join([_.strip() for _ in re_tokenize.split(text) if _.strip() != ''])
-        # print text.encode('ascii', 'ignore')
-        potentials = re_rid.findall(text)
-        # print potentials
-        for p in potentials:
-            ans += re_digits.findall(p)
-        return list(set(ans))
+        texts = re_seperator.split(text)
+        potentials = []
+        for text in texts:
+            text = ' '.join([_.strip() for _ in re_tokenize.split(text) if _.strip() != ''])
+            # print text.encode('ascii', 'ignore')
+            potentials += re_rid.findall(text)
+        
+        print potentials
+        for p in set(potentials):
+            for ext in re_digits.findall(p):
+                extraction = None
+                for site in RE_DICT_SITE:
+                    if site in ext:
+                        extraction = {RE_DICT_NAME_IDENTIFIER:ext, RE_DICT_NAME_SITE: site} 
+                    break
+                if extraction:
+                    ans.append(extraction)
+                else:
+
+                    ans.append({RE_DICT_NAME_IDENTIFIER:ext, RE_DICT_NAME_SITE: RE_DICT_SITE_NAME_OTHERS} )
+
+            # ans += re_digits.findall(p)
+        return ans
 
 
 if __name__ == '__main__':
@@ -119,5 +133,5 @@ if __name__ == '__main__':
     # text = "my  I'd is 186058"
     # text = "In/Our calls, clean professional gentleman only. Clean,Discreet,Sanctuary for In Calls. Real photos, 100% Independent, Intelligent, and Truly a class above... \nWell Reviewed onID #283603 and Usasexguide(dot)com #2008\n239-321-2063\n8am-8pm, unless arrangements are made in advanced.\nDonation basis but Generousity is always met w Gratitude. Well Reviewed,\nToday only $20 off any session.\nCall Now 2393212063. I offer video/photo also, ask me on my profile before calling...  Adult Finder"
     # text = "I'll have your heart skipping beats. To the point you can't hardly breathe. I'll bring out the FREAK IN ME. I'll have your knees shaking and biting your lips from the way I'd kiss you. Have your hips going all the way with it. Losing control, but staying with it.  Review ID: 159184 p/411: P59111 \n  \n CARTY 7083208795 Avail 24/7   My Pix and Vids"
-    # text = "In/Our calls, clean professional gentleman only. Clean,Discreet,Sanctuary for In Calls. Real photos, 100% Independent, Intelligent, and Truly a class above... \nWell Reviewed onID #283603 and Usasexguide(dot)com #2008\n239-321-2063\n8am-8pm, unless arrangements are made in advanced.\nDonation basis but Generousity is always met w Gratitude. Well Reviewed,\nToday only $20 off any session.\nCall Now 2393212063. I offer video/photo also, ask me on my profile before calling...  Adult Finder"
+    text = "In/Our calls, clean professional gentleman only. Clean,Discreet,Sanctuary for In Calls. Real photos, 100% Independent, Intelligent, and Truly a class above... \nWell Reviewed onID #283603 and Usasexguide(dot)com #2008\n239-321-2063\n8am-8pm, unless arrangements are made in advanced.\nDonation basis but Generousity is always met w Gratitude. Well Reviewed,\nToday only $20 off any session.\nCall Now 2393212063. I offer video/photo also, ask me on my profile before calling...  Adult Finder"
     print DIGRIDE.extract(text)
