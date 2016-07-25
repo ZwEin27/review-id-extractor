@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 14:31:45
+# @Last Modified time: 2016-07-25 14:34:57
 
 import re
 
@@ -13,6 +13,7 @@ import re
 punctuations = r'\!\"\!\"\$\%\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}\~'
 keywords = [
     'review',
+    'revews',
     'reviews',
     'reviewed',
     'reviewedid'
@@ -100,5 +101,5 @@ if __name__ == '__main__':
     # text = "I am highly reviewed  (135701) ,  411 verified  "
     # text = "Out calls available.WELL REVIEWEDID 259771"
     # text = "my  I'd is 186058"
-    
+    text = "Well Reviewed onID #283603 and Usasexguide(dot)com #2008\n239-321-2063\n8am-8pm, unless"
     print DIGRIDE.extract(text)
