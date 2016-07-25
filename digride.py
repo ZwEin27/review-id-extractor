@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 13:59:25
+# @Last Modified time: 2016-07-25 14:09:45
 
 import re
 
@@ -26,14 +26,14 @@ re_tokenize = re.compile(r'[\s'+punctuations+r']')
 re_seperator = re.compile(r'[\n]')
 
 reg_simpleones = [
-    r''
+    r'(?<=\n\n)\d{6}$'
 ]
 re_simpleones = re.compile(r'(?:'+r'|'.join(reg_simpleones)+r')', re.IGNORECASE)
 
 reg_keywords = r'|'.join(keywords)
-reg_fc_word_prev = r'(?:'+reg_keywords+r') (?:(?:[a-z]|[a-z].*[a-z]) ){,3}?'
+reg_fc_word_prev = r'(?:'+reg_keywords+r') (?:(?:[a-z]|[a-z].*?[a-z]) ){,3}?'
 # reg_fc_word_prev = r'(?:'+reg_keywords+r') T '
-reg_fc_word_post = r'(?:(?:[a-z]|[a-z].*[a-z]) ){,3}?(?:'+reg_keywords+r')'
+reg_fc_word_post = r'(?:(?:[a-z]|[a-z].*?[a-z]) ){,3}?(?:'+reg_keywords+r')'
 reg_fc_simple = r'#' #r'.{,5}?[#]'
 reg_fc_ter = r'(?:\bt\s*?[e3]|\b[e3]\s*?p|\bt\s*?[e3]?\s*?r|\bt\b|\be\b|\br\b)'
 reg_fc_id = r'i[\s'+punctuations+r']{,5}?d'
@@ -63,9 +63,9 @@ class DIGRIDE(object):
 
     @staticmethod
     def extract(text):
-        ans = []
-
-
+        # ans = []
+        ans = re_simpleones.findall(text)
+        # print 'ans', ans
         text = re_seperator.sub(' sep ', text)
         text = ' '.join([_.strip() for _ in re_tokenize.split(text) if _.strip() != ''])
         # print text.encode('ascii', 'ignore')
@@ -93,5 +93,6 @@ if __name__ == '__main__':
     # text = "??T/ E/ R ID: 207787"
     # text = "Check out my reviews T-212440  *82 619 219 1734"
     # text = "Check out my reviews T 212440"
-    text = "Well Reviewed #185826"
+    # text = "Well Reviewed #185826"
+    text = "*AVAILABLE NOW. *\n100% Real/Recent Pics.\n5'1105lbs34B\nYES. I Have A Reviews. TER_ID:[[227083]]\nCome Fall In Love with Orlando's Top ProVider. \n MERCEDES 4074596026.  Me and my friends are on Adult Finder  soooo you can find us all on there if you want... smooth_thigh"
     print DIGRIDE.extract(text)
