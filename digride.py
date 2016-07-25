@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 18:20:48
+# @Last Modified time: 2016-07-25 18:34:42
 
 import re
 
@@ -55,7 +55,8 @@ reg_fc_simple = r'#' #r'.{,5}?[#]'
 reg_fc_ter = r'(?:\bt\s*?[e3]|\b[e3]\s*?p|\bt\s*?[e3]?\s*?r|\bt\b|\be\b|\br\b)'
 reg_fc_id = r'i[\s'+punctuations+r']{,5}?d\s*?'
 
-reg_back_check = r'(?![\s'+punctuations+r']*?(?:\d{4,5}|\d{7,}))'
+# reg_back_check = r'(?![\s'+punctuations+r']*?(?:\d{4,5}|\d{7,}))'
+reg_back_check = r'[a-z\s'+punctuations+r']{,7}(?!(?:\d{4,5}|\d{7,}))'
 
 reg_target = r'.{,2}?(?:\d{6}\b[\s\&]*)+'
 
@@ -103,15 +104,18 @@ class DIGRIDE(object):
             # print text.encode('ascii', 'ignore')
             potentials += re_rid.findall(text)
         
-        print potentials
+        # print potentials
         for p in set(potentials):
             for ext in re_digits.findall(p):
                 extraction = None
                 for site in RE_DICT_SITE:
                     # if site in ext:
-                    if re_sites[site].findall(ext):
+                    # print ext
+                    # print site, re_sites[site].findall(p)
+                    if re_sites[site].findall(p):
+
                         extraction = {RE_DICT_NAME_IDENTIFIER:ext, RE_DICT_NAME_SITE: site} 
-                    break
+                        break
                 if extraction:
                     ans.append(extraction)
                 else:
@@ -123,7 +127,7 @@ class DIGRIDE(object):
 
 if __name__ == '__main__':
     # text = "My I.D.267101"
-    # text = "Reviewed #229512 T.e. R"
+    text = "Reviewed #229512 T.e. R"
     # text = "Hey guys! I'm Heidi!!! I am a bubbly, busty, blonde massage therapist and only provide the most sensual therapeutic experience! I love what I do and so will YOU!!! I am always learning new techniqes and helping other feel relaxed. Just send Me an email and lets meet!!!  I am reviewed! #263289 \nheidishandsheal@gmail.com"
     # text = "Reviewed TER 202567 "
     # text = "EXCEPTION TRiD:263865.Call  404-599-8674"
