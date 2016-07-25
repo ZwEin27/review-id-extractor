@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 12:04:01
+# @Last Modified time: 2016-07-25 12:12:21
 
 import re
 
@@ -29,10 +29,10 @@ reg_keywords = r'|'.join(keywords)
 reg_fc_word_prev = r'(?:'+reg_keywords+r') (?:[a-z].*[a-z] ){,3}?'
 reg_fc_word_post = r'(?:[a-z].*[a-z] ){,3}?(?:'+reg_keywords+r')'
 reg_fc_simple = r'#' #r'.{,5}?[#]'
-reg_fc_ter = r'(?:\bt\s*?[e3]?\s*?r|\bt\b|\be\b|\br\b)'
+reg_fc_ter = r'(?:\bt\s*?[e3]|\b[e3]\s*?p|\bt\s*?[e3]?\s*?r|\bt\b|\be\b|\br\b)'
 reg_fc_id = r'i[\s'+punctuations+r']{,5}?d'
 
-reg_back_check = r'(?!['+punctuations+r']*?\d{6})'
+reg_back_check = r'(?!['+punctuations+r']*?(?:\d{1,5}|\d{7,}))'
 
 reg_target = r'.{,2}?(?:\d{6}[\s\&]*)+'
 
@@ -78,5 +78,7 @@ if __name__ == '__main__':
     # text = "HIGHLY REVIEWED id number 195001 & 260255 OUTCALL/INCALL"
     # text = " # 257884"
     # text = "??TER ID: 207787 "
-    text = "Super 8314063130 tr 203337 Habla espanol.Call"
+    # text = "Super 8314063130 tr 203337 Habla espanol.Call"
+    # text = "? #609418-0946"
+    text = "guys  Ep 161566 & Te 192110"
     print DIGRIDE.extract(text)
