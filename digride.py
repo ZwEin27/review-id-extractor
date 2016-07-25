@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 12:02:12
+# @Last Modified time: 2016-07-25 12:04:01
 
 import re
 
@@ -29,7 +29,7 @@ reg_keywords = r'|'.join(keywords)
 reg_fc_word_prev = r'(?:'+reg_keywords+r') (?:[a-z].*[a-z] ){,3}?'
 reg_fc_word_post = r'(?:[a-z].*[a-z] ){,3}?(?:'+reg_keywords+r')'
 reg_fc_simple = r'#' #r'.{,5}?[#]'
-reg_fc_ter = r'(?:\bt[e3]r\s*?|t\s*?[e3]?\s*?r|\bt\b|\be\b|\br\b)'
+reg_fc_ter = r'(?:\bt\s*?[e3]?\s*?r|\bt\b|\be\b|\br\b)'
 reg_fc_id = r'i[\s'+punctuations+r']{,5}?d'
 
 reg_back_check = r'(?!['+punctuations+r']*?\d{6})'
@@ -77,5 +77,6 @@ if __name__ == '__main__':
     # text = "Highly reviewed on , 178352 "
     # text = "HIGHLY REVIEWED id number 195001 & 260255 OUTCALL/INCALL"
     # text = " # 257884"
-    text = "??TER ID: 207787 "
+    # text = "??TER ID: 207787 "
+    text = "Super 8314063130 tr 203337 Habla espanol.Call"
     print DIGRIDE.extract(text)
