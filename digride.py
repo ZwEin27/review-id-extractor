@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 14:11:56
+# @Last Modified time: 2016-07-25 14:13:52
 
 import re
 
@@ -14,7 +14,8 @@ punctuations = r'\!\"\!\"\$\%\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}\
 keywords = [
     'review',
     'reviews',
-    'reviewed'
+    'reviewed',
+    'reviewedid'
 ]
 
 
@@ -96,5 +97,5 @@ if __name__ == '__main__':
     # text = "Well Reviewed #185826"
     # text = "*AVAILABLE NOW. *\n100% Real/Recent Pics.\n5'1105lbs34B\nYES. I Have A Reviews. TER_ID:[[227083]]\nCome Fall In Love with Orlando's Top ProVider. \n MERCEDES 4074596026.  Me and my friends are on Adult Finder  soooo you can find us all on there if you want... smooth_thigh"
     # text = "I am highly reviewed  (135701) ,  411 verified  "
-    text = "?HIGHLY REVIEWED on T  R 256779 "
+    text = "Out calls available.WELL REVIEWEDID 259771"
     print DIGRIDE.extract(text)
