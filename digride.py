@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 14:09:45
+# @Last Modified time: 2016-07-25 14:10:32
 
 import re
 
@@ -94,5 +94,6 @@ if __name__ == '__main__':
     # text = "Check out my reviews T-212440  *82 619 219 1734"
     # text = "Check out my reviews T 212440"
     # text = "Well Reviewed #185826"
-    text = "*AVAILABLE NOW. *\n100% Real/Recent Pics.\n5'1105lbs34B\nYES. I Have A Reviews. TER_ID:[[227083]]\nCome Fall In Love with Orlando's Top ProVider. \n MERCEDES 4074596026.  Me and my friends are on Adult Finder  soooo you can find us all on there if you want... smooth_thigh"
+    # text = "*AVAILABLE NOW. *\n100% Real/Recent Pics.\n5'1105lbs34B\nYES. I Have A Reviews. TER_ID:[[227083]]\nCome Fall In Love with Orlando's Top ProVider. \n MERCEDES 4074596026.  Me and my friends are on Adult Finder  soooo you can find us all on there if you want... smooth_thigh"
+    text = "I am highly reviewed  (135701) ,  411 verified  "
     print DIGRIDE.extract(text)
