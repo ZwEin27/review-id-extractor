@@ -2,13 +2,28 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 17:40:24
+# @Last Modified time: 2016-07-25 17:45:29
 
 import re
 
 ######################################################################
 #   Constant
 ######################################################################
+
+RE_DICT_NAME_IDENTIFIER = 'identifier'
+RE_DICT_NAME_SITE = 'site'
+
+RE_DICT_SITE_NAME_NR = 'nr'
+RE_DICT_SITE_NAME_TER = 'ter'
+RE_DICT_SITE_NAME_411 = '411'
+RE_DICT_SITE_NAME_OTHERS = 'others'
+
+RE_DICT_SITE = [
+    RE_DICT_SITE_NAME_NR,
+    RE_DICT_SITE_NAME_TER,
+    RE_DICT_SITE_NAME_411,
+    RE_DICT_SITE_NAME_OTHERS
+]
 
 punctuations = r'\!\"\!\"\$\%\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}\~'
 keywords = [
