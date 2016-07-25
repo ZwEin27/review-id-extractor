@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 11:18:02
+# @Last Modified time: 2016-07-25 11:24:36
 
 import re
 
@@ -16,7 +16,10 @@ punctuations = r'\!\"\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\
 #   Regular Expression
 ######################################################################
 
-reg_gap_word = r'(?:[\s'+punctuations+r']*?[a-z].*[a-z][\s'+punctuations+r']*?)'
+re_tokenize = re.compile(r'[\s'+punctuations+r']')
+
+# reg_gap_word = r'(?:[\s'+punctuations+r']*?[a-z].*[a-z][\s'+punctuations+r']*?)'
+reg_gap_word = r'(?:\b[a-z].*[a-z]\b)'
 
 reg_fc_word = reg_gap_word+r'{,3}'+r'(?:review)'+reg_gap_word+r'{,3}'
 reg_fc_simble =  r'.{,5}?[#]'
@@ -27,11 +30,11 @@ reg_back_check = r'(?!['+punctuations+r']*?\d)'
 reg_target = r'.{,2}?\d{6}'
 
 reg_rid = [
-    r'(?:'+reg_fc_word+reg_target+reg_back_check+r')',
     r'(?:'+reg_fc_simble+reg_target+reg_back_check+r')',
     r'(?:\b'+reg_fc_ter+reg_target+reg_back_check+r')',
     r'(?:\b'+reg_fc_id+reg_target+reg_back_check+r')',
-    r'(?:\b'+reg_fc_ter+r'.{,5}'+reg_fc_id+reg_target+reg_back_check+r')'
+    r'(?:\b'+reg_fc_ter+r'.{,5}'+reg_fc_id+reg_target+reg_back_check+r')',
+    r'(?:'+reg_fc_word+reg_target+reg_back_check+r')'
 ]
 re_rid = re.compile(r'(?:'+r'|'.join(reg_rid)+r')', re.IGNORECASE)
 
@@ -47,9 +50,13 @@ class DIGRIDE(object):
 
     @staticmethod
     def extract(text):
+        text = ' '.join([_.strip() for _ in re_tokenize.split(text) if _.strip() != ''])
+        print 'process:\n'
+        print text.encode('ascii', 'ignore')
         ans = re_rid.findall(text)
         # print ans
         ans = [re_digits.search(_).group(0) for _ in ans]
+
         return ans
 
 
