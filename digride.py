@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 14:13:52
+# @Last Modified time: 2016-07-25 14:31:45
 
 import re
 
@@ -32,12 +32,13 @@ reg_simpleones = [
 re_simpleones = re.compile(r'(?:'+r'|'.join(reg_simpleones)+r')', re.IGNORECASE)
 
 reg_keywords = r'|'.join(keywords)
-reg_fc_word_prev = r'(?:'+reg_keywords+r') (?:(?:[a-z]|[a-z].*?[a-z]) ){,3}?'
+reg_word_gap = r'(?:(?:[a-z]|[a-z].*?[a-z]) ){,3}?' # ?
+reg_fc_word_prev = r'(?:'+reg_keywords+r') '+reg_word_gap
 # reg_fc_word_prev = r'(?:'+reg_keywords+r') T '
-reg_fc_word_post = r'(?:(?:[a-z]|[a-z].*?[a-z]) ){,3}?(?:'+reg_keywords+r')'
+reg_fc_word_post = reg_word_gap+r'?(?:'+reg_keywords+r')'
 reg_fc_simple = r'#' #r'.{,5}?[#]'
 reg_fc_ter = r'(?:\bt\s*?[e3]|\b[e3]\s*?p|\bt\s*?[e3]?\s*?r|\bt\b|\be\b|\br\b)'
-reg_fc_id = r'i[\s'+punctuations+r']{,5}?d'
+reg_fc_id = r'i[\s'+punctuations+r']{,5}?d\s*?'
 
 reg_back_check = r'(?![\s'+punctuations+r']*?(?:\d{4,5}|\d{7,}))'
 
@@ -46,7 +47,7 @@ reg_target = r'.{,2}?(?:\d{6}[\s\&]*)+'
 reg_rid = [
     r'(?:'+reg_fc_simple+reg_target+reg_back_check+r')',
     r'(?:\b'+reg_fc_ter+reg_target+reg_back_check+r')',
-    r'(?:\b'+reg_fc_id+reg_target+reg_back_check+r')',
+    r'(?:\b'+reg_fc_id+reg_word_gap+reg_target+reg_back_check+r')',
     r'(?:\b'+reg_fc_ter+r'.{,5}?'+reg_fc_id+reg_target+reg_back_check+r')',
     r'(?:'+reg_fc_word_prev+reg_target+reg_back_check+r')'
 ]
@@ -97,5 +98,7 @@ if __name__ == '__main__':
     # text = "Well Reviewed #185826"
     # text = "*AVAILABLE NOW. *\n100% Real/Recent Pics.\n5'1105lbs34B\nYES. I Have A Reviews. TER_ID:[[227083]]\nCome Fall In Love with Orlando's Top ProVider. \n MERCEDES 4074596026.  Me and my friends are on Adult Finder  soooo you can find us all on there if you want... smooth_thigh"
     # text = "I am highly reviewed  (135701) ,  411 verified  "
-    text = "Out calls available.WELL REVIEWEDID 259771"
+    # text = "Out calls available.WELL REVIEWEDID 259771"
+    # text = "my  I'd is 186058"
+    
     print DIGRIDE.extract(text)
