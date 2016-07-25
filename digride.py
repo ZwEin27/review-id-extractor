@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 18:09:13
+# @Last Modified time: 2016-07-25 18:20:48
 
 import re
 
@@ -70,6 +70,18 @@ re_rid = re.compile(r'(?:'+r'|'.join(reg_rid)+r')', re.IGNORECASE)
 # print reg_rid
 re_digits = re.compile(r'(?:\d{6})')
 
+# normalize
+re_nr = re.compile(r'(?:\bn\s*?r)', re.IGNORECASE)
+re_ter = re.compile(reg_fc_ter, re.IGNORECASE)
+re_411 = re.compile(r'(?:\bp\d{5}\b)', re.IGNORECASE)
+re_others = re.compile(r'.*', re.IGNORECASE)
+
+re_sites = {
+    RE_DICT_SITE_NAME_NR: re_nr,
+    RE_DICT_SITE_NAME_TER: re_ter,
+    RE_DICT_SITE_NAME_411: re_411,
+    RE_DICT_SITE_NAME_OTHERS: re_others
+}
 
 ######################################################################
 #   Main Class
@@ -96,13 +108,13 @@ class DIGRIDE(object):
             for ext in re_digits.findall(p):
                 extraction = None
                 for site in RE_DICT_SITE:
-                    if site in ext:
+                    # if site in ext:
+                    if re_sites[site].findall(ext):
                         extraction = {RE_DICT_NAME_IDENTIFIER:ext, RE_DICT_NAME_SITE: site} 
                     break
                 if extraction:
                     ans.append(extraction)
                 else:
-
                     ans.append({RE_DICT_NAME_IDENTIFIER:ext, RE_DICT_NAME_SITE: RE_DICT_SITE_NAME_OTHERS} )
 
             # ans += re_digits.findall(p)
@@ -133,5 +145,5 @@ if __name__ == '__main__':
     # text = "my  I'd is 186058"
     # text = "In/Our calls, clean professional gentleman only. Clean,Discreet,Sanctuary for In Calls. Real photos, 100% Independent, Intelligent, and Truly a class above... \nWell Reviewed onID #283603 and Usasexguide(dot)com #2008\n239-321-2063\n8am-8pm, unless arrangements are made in advanced.\nDonation basis but Generousity is always met w Gratitude. Well Reviewed,\nToday only $20 off any session.\nCall Now 2393212063. I offer video/photo also, ask me on my profile before calling...  Adult Finder"
     # text = "I'll have your heart skipping beats. To the point you can't hardly breathe. I'll bring out the FREAK IN ME. I'll have your knees shaking and biting your lips from the way I'd kiss you. Have your hips going all the way with it. Losing control, but staying with it.  Review ID: 159184 p/411: P59111 \n  \n CARTY 7083208795 Avail 24/7   My Pix and Vids"
-    text = "In/Our calls, clean professional gentleman only. Clean,Discreet,Sanctuary for In Calls. Real photos, 100% Independent, Intelligent, and Truly a class above... \nWell Reviewed onID #283603 and Usasexguide(dot)com #2008\n239-321-2063\n8am-8pm, unless arrangements are made in advanced.\nDonation basis but Generousity is always met w Gratitude. Well Reviewed,\nToday only $20 off any session.\nCall Now 2393212063. I offer video/photo also, ask me on my profile before calling...  Adult Finder"
+    # text = "In/Our calls, clean professional gentleman only. Clean,Discreet,Sanctuary for In Calls. Real photos, 100% Independent, Intelligent, and Truly a class above... \nWell Reviewed onID #283603 and Usasexguide(dot)com #2008\n239-321-2063\n8am-8pm, unless arrangements are made in advanced.\nDonation basis but Generousity is always met w Gratitude. Well Reviewed,\nToday only $20 off any session.\nCall Now 2393212063. I offer video/photo also, ask me on my profile before calling...  Adult Finder"
     print DIGRIDE.extract(text)
