@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-30 15:05:04
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-22 18:34:22
+# @Last Modified time: 2016-07-25 09:46:27
 
 
 import sys
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     def run_main_test():
         suite = unittest.TestSuite()
 
-        suite.addTest(TestDIGPEMethods('test_digride'))
+        suite.addTest(TestDIGRIDEMethods('test_digride'))
         # suite.addTest(TestDIGPEMethods('test_digride_text'))
 
         runner = unittest.TextTestRunner()
