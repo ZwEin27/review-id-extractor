@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-22 17:52:30
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-26 10:07:11
+# @Last Modified time: 2016-07-26 10:21:51
 
 import re
 
@@ -53,7 +53,8 @@ reg_word_gap = r'(?:[a-z]+ ){,3}?' # ?
 reg_fc_word_prev = r'(?:'+reg_keywords+r') '+reg_word_gap
 reg_fc_word_post = reg_word_gap+r'?(?:'+reg_keywords+r')'
 reg_fc_simple = r'#' #r'.{,5}?[#]'
-reg_fc_ter = r'(?:\bt\s*?[e3]\b|\b[e3]\s*?p|\bt\s*?[e3]?\s*?r|\bt\b|\be\b|\br\b)'
+reg_fc_ter = r'(?:\bt\s*?[e3]\b|\b[e3]\s*?p\b|\bt\s*?[e3]?\s*?r(?:id|r)?\b|\bt\b|\be\b|\br\b)'
+# reg_fc_ter = r'(?<=\b)(?:t\s*?[e3]|[e3]\s*?p|t\s*?[e3]?\s*?r|t|e|r)(?=\b)'
 reg_fc_id = r'i[\s'+punctuations+r']{,5}?d\s*?'
 
 # reg_back_check = r'(?![\s'+punctuations+r']*?(?:\d{4,5}|\d{7,}))'
@@ -63,7 +64,7 @@ reg_back_check = r'[a-z]{,7}(?![\s'+punctuations+r']*?(?:\d{4,5}|\d{7,}))'
 reg_target = r'.{,2}?(?:\d{6}\b[\s\&]*)+'
 
 reg_rid = [
-    r'(?:'+reg_fc_simple+reg_target+reg_back_check+r')',
+    r'(?:'+reg_fc_ter+r'?\s*?'+reg_fc_simple+reg_target+reg_back_check+r')',
     r'(?:\b'+reg_fc_ter+reg_word_gap+reg_target+reg_back_check+r')',
     r'(?:\b'+reg_fc_ter+r'?\s*?'+reg_fc_id+reg_word_gap+reg_target+reg_back_check+r')',
     r'(?:\b'+reg_fc_ter+r'.{,5}?'+reg_fc_id+reg_target+reg_back_check+r')',
@@ -158,5 +159,7 @@ if __name__ == '__main__':
     # text = "Hey guys!! I'm a beautiful grown woman who would love to spend some quality time with you. Call me or minimal texts at 608-314-7258...I look forward to meeting you! ??? Ms. JeNnA  ??? (review ID # 174468) \nAsk bout fetishes if u feel like having some extra fun"
     # text = "T3R Review #: 250860"
     # text = "Puerto RicanDominican BBW Five Star Experience HIGHLY REVIEWED  You'll LOVE spending time with me. I have gorgeous features, great assets, and SKILLS. I take extreme pleasure in providing you with an illustrious experience that couldn't be anything less than mutual. If you're an upscale gentleman with an appetite for an elite, unique companion; let me fulfill your fantasy. Bella 407-257-2799 Text or Call (no blocked calls) WELL REVIEWED, GOOGLE ME. ID 270295.Call  407-257-2799"
-    text = "Hi My name is Angel. I'm available today in Laughlin,outcall only (I come to you)I have great reviews my T E R ID is 173365 please look me up! I am open minded and My pictures are current. Feel free to call me @ 2 1 9 3 7 9 4 3 7 7 Set flat rates for my time only. Outcall is 350 roses 1St hr. 2ND is 250roses"
+    # text = "Hi My name is Angel. I'm available today in Laughlin,outcall only (I come to you)I have great reviews my T E R ID is 173365 please look me up! I am open minded and My pictures are current. Feel free to call me @ 2 1 9 3 7 9 4 3 7 7 Set flat rates for my time only. Outcall is 350 roses 1St hr. 2ND is 250roses"
+    # text = "Hey guys I'm Brandy and I provide a five star experience that will have you coming back for more.. I always aim to please and my sessions are never rushed.. Incall specials only NO BLACK MEN. 469 245 1553 Well reviewed #283519 trucker friendly.Call  469-245-1553 "
+    text = "(702) 793.6290  TERid ( 169334)"
     print DIGRIDE.extract(text)
