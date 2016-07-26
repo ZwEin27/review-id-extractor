@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-30 15:05:04
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-25 18:38:59
+# @Last Modified time: 2016-07-25 21:07:07
 
 
 import sys
@@ -18,8 +18,6 @@ import groundtruth
 
 
 def cmp_json_obj(json_obj1, json_obj2):
-    print json_obj1
-    print json_obj2
     if json_obj1['identifier'] != json_obj2['identifier']:
         return False
     if json_obj1['site'] != json_obj2['site']:
@@ -27,6 +25,8 @@ def cmp_json_obj(json_obj1, json_obj2):
     return True
 
 def cmp_extraction(ext1, ext2):
+    ext1.sort()
+    ext2.sort()
     ext1_len = len(ext1)
     ext2_len = len(ext2)
     if ext1_len != ext2_len:
